@@ -23,7 +23,7 @@ public enum TipoEvento {
     CONSULTA_CATALOGO_GENERAL("Consulta catálogo general"),
     CONSULTA_CATALOGO_CONCRETA("Consulta catálogo concreta"),
     /*2 */ LISTADO_USUARIOS("Listado de usuarios"),
-    LISTADO_USUARIOS_ERROR("Listado de usuarios"),
+    CONSULTA_GENERAL_USUARIOS_ERROR("Listado de usuarios"),
     ALTA_USUARIO("Alta de Usuario"),
     ALTA_USUARIO_OK("Alta de Usuari ok"),
     ALTA_USUARIO_ERROR("Alta de Usuario error"),
@@ -42,7 +42,7 @@ public enum TipoEvento {
     BAJA_TITULO("Baja de título"),
     BAJA_TITULO_OK("Baja título, Ok"),
     BAJA_TITULO_ERROR("Error en Baja de título"),
-    CONSULTA_AUTORES_GENERAL("Consulta catálogo general"),
+    CONSULTA_GENERAL_AUTORES("Consulta catálogo general"),
     ALTA_AUTOR("Alta de autor"),
     ALTA_AUTOR_OK("Alta de autor correcta"),
     ALTA_AUTOR_ERROR("Alta de autor, ERROR"),
@@ -52,10 +52,11 @@ public enum TipoEvento {
     BAJA_AUTOR("Baja de autor"),
     BAJA_AUTOR_OK("Baja autor, Ok"),
     BAJA_AUTOR_ERROR("Error en Baja de autor"),
-    LISTADO_ISO_639_1("Consulta listado ISO 639_1"),
+    CONSULTA_GENERAL_ISO_639_1("Consulta listado ISO 639_1"),
     ALTA_ELEMENTO_OK("Alta genérica correcta"),
     BAJA_ELEMENTO_OK("Baja genérica correcta"),
-    MODIFICACION_ELEMENTO_OK("Modificación genérica correcta");
+    MODIFICACION_ELEMENTO_OK("Modificación genérica correcta"),
+    CONSULTA_GENERAL_EDITORIALES("Consulta general de editoriales");
     private String tipoEvento;
 
     private TipoEvento(String tipoEvento) {

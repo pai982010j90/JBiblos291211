@@ -31,6 +31,7 @@ import Vista2.*;
 import Controlador2.*;
 import HBM.Autor;
 import HBM.Dewey;
+import HBM.Editorial;
 import HBM.Idioma6391;
 import HBM.Titulo;
 import Modelo.Catalogo;
@@ -76,6 +77,7 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
     private List<Dewey> listaCategoriasDewey;
     private List<Idioma6391> listaIdiomas6391;
     private List<Autor> listaAutores;
+    private List<Editorial> listaEditoriales;
     //private VistaGListadoUsuarios vistaGListadoUsuarios;
     private VistaGGestion vistaGGestionCatalogo;
     private VistaGGestion vistaGGestionAutores;
@@ -86,8 +88,11 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         this.padre = padre;
         this.controlador = controlador;
         this.usuario = usuario;
+
+        // Carga la listas de valores generales
         controlador.procesarEvento(new Evento(TipoEvento.OBTENER_CAT_DEWEY, null, this));
-        controlador.procesarEvento(new Evento(TipoEvento.LISTADO_ISO_639_1, null, this));
+        controlador.procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_ISO_639_1, null, this));
+        controlador.procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_EDITORIALES, null, this));
 
         initComponents();
         inicializaComponentesPropios();
@@ -128,7 +133,7 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
 
         ParametrizadorGestion parametrosGestionCatalogo = new ParametrizadorGestion("Gestión de Catálogo", catalogoTableModel, TipoEvento.CONSULTA_CATALOGO_GENERAL);
 
-        vGFichaTitulo = new VistaGFichaTitulo(controlador, listaCategoriasDewey, listaIdiomas6391);
+        vGFichaTitulo = new VistaGFichaTitulo(controlador, listaCategoriasDewey, listaIdiomas6391, listaEditoriales);
         jdpDesktop.add(vGFichaTitulo);
 
         vistaGGestionCatalogo = new VistaGGestion(controlador, parametrosGestionCatalogo, vGFichaTitulo, usuario.isAdministrador());
@@ -144,7 +149,7 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         AutoresTableModelGen autoresTableModelGen = new AutoresTableModelGen(2);
         autoresTableModelGen.setEditable(false);
 
-        ParametrizadorGestion parametrosGestionAutores = new ParametrizadorGestion("Gestión Autores", autoresTableModelGen, TipoEvento.CONSULTA_AUTORES_GENERAL);
+        ParametrizadorGestion parametrosGestionAutores = new ParametrizadorGestion("Gestión Autores", autoresTableModelGen, TipoEvento.CONSULTA_GENERAL_AUTORES);
 
 
         VistaGFichaAutor vGFichaAutores = new VistaGFichaAutor(controlador);
@@ -581,11 +586,14 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 listaCategoriasDewey = (List<Dewey>) evento.getInfo();
                 break;
 
-            case LISTADO_ISO_639_1:
+            case CONSULTA_GENERAL_ISO_639_1:
                 listaIdiomas6391 = (List<Idioma6391>) evento.getInfo();
                 break;
+            case CONSULTA_GENERAL_EDITORIALES:
+                listaEditoriales = (List<Editorial>) evento.getInfo();
+                break;
 
-            case CONSULTA_AUTORES_GENERAL:
+            case CONSULTA_GENERAL_AUTORES:
                 listaAutores = (List<Autor>) evento.getInfo();
                 //vistaGGestionAutores.fijarModelo(listaAutores);
                 break;
@@ -663,7 +671,7 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 }
                 break;
 
-            case LISTADO_USUARIOS_ERROR:
+            case CONSULTA_GENERAL_USUARIOS_ERROR:
                 JOptionPane.showMessageDialog(this,
                         "Error en la peticion de lista de usuarios",
                         "Error en listado usuarios",

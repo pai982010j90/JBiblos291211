@@ -267,7 +267,7 @@ public class VistaGFichaUsuario extends FichaGBase {
             System.out.println("Aceptar en modo mostrar");
         } else if (modoVentana.equals("alta")) {
             System.out.println("Aceptar en modo alta");
-        }
+        
         Usuario usuario = new Usuario();
         usuario.setDni(Integer.parseInt(jTextFieldDNI.getText()));
         usuario.setNombre(this.jTextFieldNombre.getText());
@@ -280,6 +280,7 @@ public class VistaGFichaUsuario extends FichaGBase {
         usuario.setIsAdministrador(this.jCheckBoxAdministrador.isSelected());
         Evento evento = new Evento(TipoEvento.ALTA_USUARIO, usuario, this);
         controlador.procesarEvento(evento);
+        }
     }//GEN-LAST:event_jBAceptarActionPerformed
 
     private void jTextFieldClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldClaveActionPerformed

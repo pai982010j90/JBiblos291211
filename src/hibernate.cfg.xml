@@ -8,7 +8,7 @@
     <property name="hibernate.connection.username">jbiblos</property>
     <property name="hibernate.connection.password">jbiblos</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
-    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.tinyInt1isBit">true</property>
     <property name="hibernate.connection.transformedBitIsBoolean">true</property>
     <mapping resource="HBM/Persona.hbm.xml"/>

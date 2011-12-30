@@ -185,4 +185,37 @@ public class Biblioteca extends Observable {
         }
         return autores;
     }
+
+    public void altaTitulo(Titulo titulo) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            session.save(titulo);
+            session.flush();
+            session.getTransaction().commit();
+        } catch (ObjectNotFoundException ex) {
+            System.err.println("ObjectNotFoundException");
+            throw ex;
+        }catch(Exception ex){
+            System.err.println("Exception");
+        }
+        
+    }
+
+    public Object getEditoriales() {
+         List<Editorial> listaCategoriasEditorial = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            listaCategoriasEditorial = session.createQuery("from Editorial").list();
+
+            session.getTransaction().commit();
+            //session.close();
+
+        } catch (ObjectNotFoundException ex) {
+            System.err.println("ObjectNotFoundException");
+        }
+        return listaCategoriasEditorial;
+    }
 }

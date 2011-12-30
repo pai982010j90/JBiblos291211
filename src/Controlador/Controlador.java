@@ -65,8 +65,8 @@ public class Controlador extends AbstractController implements GestorEventos {
             case OBTENER_CAT_DEWEY:
                 evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.OBTENER_CAT_DEWEY, biblioteca.getCategoriasDewey()));
                 break;
-            case LISTADO_ISO_639_1:
-                evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.LISTADO_ISO_639_1, biblioteca.getISO6391()));
+            case CONSULTA_GENERAL_ISO_639_1:
+                evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_ISO_639_1, biblioteca.getISO6391()));
                 break;
 
             case CONSULTA_CATALOGO_GENERAL:
@@ -109,9 +109,18 @@ public class Controlador extends AbstractController implements GestorEventos {
                 evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
                 break;
 
-            case CONSULTA_AUTORES_GENERAL:
+            case CONSULTA_GENERAL_AUTORES:
                 if (evento.getTipoEventoRespuesta() == null) {
-                    evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.CONSULTA_AUTORES_GENERAL, biblioteca.getAutores()));
+                    evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_AUTORES, biblioteca.getAutores()));
+                } else {
+                    evento.getDestinoRespueta().procesarEvento(new Evento(evento.getTipoEventoRespuesta(), biblioteca.getAutores()));
+                }
+
+                break;
+
+            case CONSULTA_GENERAL_EDITORIALES:
+                if (evento.getTipoEventoRespuesta() == null) {
+                    evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_EDITORIALES, biblioteca.getEditoriales()));
                 } else {
                     evento.getDestinoRespueta().procesarEvento(new Evento(evento.getTipoEventoRespuesta(), biblioteca.getAutores()));
                 }
@@ -129,7 +138,7 @@ public class Controlador extends AbstractController implements GestorEventos {
                 } catch (Exception ex) {
                     Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
                     System.err.println("LISTADO_USUARIOS: ERROR");
-                    eventoRespuesta = new Evento(TipoEvento.LISTADO_USUARIOS_ERROR);
+                    eventoRespuesta = new Evento(TipoEvento.CONSULTA_GENERAL_USUARIOS_ERROR);
                 }
                 evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
                 break;
@@ -137,14 +146,25 @@ public class Controlador extends AbstractController implements GestorEventos {
                 Usuario usuario = (Usuario) evento.getInfo();
                 try {
                     biblioteca.altaUsuario(usuario);
-                    eventoRespuesta = new Evento(TipoEvento.ALTA_USUARIO_OK);
+                    eventoRespuesta = new Evento(TipoEvento.ALTA_USUARIO_OK, usuario);
 
                 } catch (Exception ex) {
-                    eventoRespuesta = new Evento(TipoEvento.ALTA_USUARIO_ERROR);
+                    eventoRespuesta = new Evento(TipoEvento.ALTA_USUARIO_ERROR, usuario);
                 }
                 evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
                 break;
 
+            case ALTA_TITULO:
+                Titulo titulo = (Titulo) evento.getInfo();
+                try {
+                    biblioteca.altaTitulo(titulo);
+                    eventoRespuesta = new Evento(TipoEvento.ALTA_TITULO_OK, titulo);
+
+                } catch (Exception ex) {
+                    eventoRespuesta = new Evento(TipoEvento.ALTA_TITULO_ERROR, titulo);
+                }
+                evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
+                break;
             case MODIFICACION_TITULO:
                 try {
                     biblioteca.modificacionTitulo((Titulo) evento.getInfo());
