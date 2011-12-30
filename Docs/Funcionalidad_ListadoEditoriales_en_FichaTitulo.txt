@@ -1,0 +1,15 @@
+Nueva funcionalidad:
+Listado de editoriales
+
+Crear TipoEvento.CONSULTA_GENERAL_EDITORIALES
+En VistaGPrincipal (constructor), pedimos lalista de editoriales
+controlador.procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_EDITORIALES, null, this));
+En conttrolador, preparar la gestion del evento
+En el modelo crear el metodo "getEditoriales" para obtener la lista desde la BD
+Creamos la gestion de CONSULTA_GENERAL_EDITORIALES en VistaGPrincipal y allí cargamos la lista de editoriales
+
+Adaptamos la clase ficha titulo para gestione listas de editoriales:
+Añadimos al constructror el parametro para pasarle la lista de editoriales obtenida
+y dentro cargamos en el combobox la lista de editoriales
+
+Sobreescribir el metodo toString en Editorial con el formato imprimible
