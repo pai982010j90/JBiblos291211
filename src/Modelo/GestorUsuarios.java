@@ -38,7 +38,7 @@ public class GestorUsuarios {
     }
 
     public Map<Integer, Usuario> getListaUsuarios() {
-        throw new UnsupportedOperationException();
+        return listadoUsuarios;
     }
 
     public void init(List<Usuario> usuarios) {

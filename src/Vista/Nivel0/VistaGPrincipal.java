@@ -13,7 +13,6 @@ package Vista.Nivel0;
 import Vista.Nivel1.VistaGGestion;
 import Vista.Nivel1.ParametrizadorGestion;
 import Vista.Nivel2.VistaGFichaUsuario;
-import Vista.Nivel1.VistaGListadoUsuarios;
 import Vista.Nivel1.VistaGCGeneral;
 import Vista.Nivel1.VAcercaDe;
 import Vista.Nivel1.VistaGCConcreta;
@@ -37,9 +36,9 @@ import HBM.Titulo;
 import Modelo.Catalogo;
 import Modelo.GestorUsuarios;
 import Modelo.Usuario;
-import Vista.Modelos.AutoresTableModel;
 import Vista.Modelos.AutoresTableModelGen;
 import Vista.Modelos.CatalogoTableModelGen;
+import Vista.Modelos.UsuariosTableModelGen;
 import Vista.Nivel2.VistaGFichaAutor;
 import java.util.List;
 import java.util.logging.Level;
@@ -55,6 +54,8 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
     // Pruebas para el nuevo MVC
     private Panel2Modelo panelPrueba;
     MiControlador controladorV2;
+    private VistaGGestion vistaGGestionUsuarios;
+    private List<Usuario> listaUsuarios;
 
     /** Creates new form VistaGPrincipal */
     public VistaGPrincipal() {
@@ -141,7 +142,6 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         jdpDesktop.add(vistaGGestionCatalogo);
 
 
-
         /*
          * Nueva gestion de AUTORES basada en ventana común
          */
@@ -158,6 +158,23 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         vistaGGestionAutores = new VistaGGestion(controlador, parametrosGestionAutores, vGFichaAutores, usuario.isAdministrador());
         vGFichaAutores.setDelegado(vistaGGestionAutores);
         jdpDesktop.add(vistaGGestionAutores);
+        
+ /*
+         * Nueva gestion de Usuarios basada en ventana común
+         */
+
+        UsuariosTableModelGen usuariosTableModelGen = new UsuariosTableModelGen(2);
+        usuariosTableModelGen.setEditable(true);
+
+        ParametrizadorGestion parametrosGestionUsuarios = new ParametrizadorGestion("Usuarios", usuariosTableModelGen, TipoEvento.CONSULTA_GENERAL_USUARIOS);
+
+
+        VistaGFichaUsuario vGFichaUsuarios = new VistaGFichaUsuario(controlador);
+        jdpDesktop.add(vGFichaUsuarios);
+
+        vistaGGestionUsuarios = new VistaGGestion(controlador, parametrosGestionUsuarios, vGFichaUsuarios, usuario.isAdministrador());
+        vGFichaUsuarios.setDelegado(vistaGGestionUsuarios);
+        jdpDesktop.add(vistaGGestionUsuarios);        
 
     }
 
@@ -200,7 +217,6 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         jMenuItemModificarTitulo = new javax.swing.JMenuItem();
         jMenuItemMostrarPerfil = new javax.swing.JMenuItem();
         jMenuUsuarios = new javax.swing.JMenu();
-        jMenuItemListadoUsuarios = new javax.swing.JMenuItem();
         jMenuItemUsuariosAlta = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItemUsuariosModificar = new javax.swing.JMenuItem();
@@ -345,14 +361,6 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
             }
         });
 
-        jMenuItemListadoUsuarios.setText("Listado");
-        jMenuItemListadoUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemListadoUsuariosActionPerformed(evt);
-            }
-        });
-        jMenuUsuarios.add(jMenuItemListadoUsuarios);
-
         jMenuItemUsuariosAlta.setText("Alta");
         jMenuItemUsuariosAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,13 +441,6 @@ public class VistaGPrincipal extends javax.swing.JFrame implements GestorEventos
         vGPerfilUsuario.setVisible(true);
     }//GEN-LAST:event_jMenuItemUsuariosModificarActionPerformed
 
-    private void jMenuItemListadoUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListadoUsuariosActionPerformed
-        Evento evListadoUsuarios = new Evento(TipoEvento.LISTADO_USUARIOS, null, this);
-        controlador.procesarEvento(evListadoUsuarios);
-        //listadoUsuarios.setVisible(true);
-
-    }//GEN-LAST:event_jMenuItemListadoUsuariosActionPerformed
-
     private void jMenuItemAltaTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAltaTituloActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemAltaTituloActionPerformed
@@ -462,8 +463,9 @@ private void jMenuUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 }//GEN-LAST:event_jMenuUsuariosActionPerformed
 
 private void jMenuItemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUsuariosActionPerformed
-    Evento evListadoUsuarios = new Evento(TipoEvento.LISTADO_USUARIOS, null, this);
-    controlador.procesarEvento(evListadoUsuarios);
+    //Evento evListadoUsuarios = new Evento(TipoEvento.LISTADO_USUARIOS, null, this);
+    //controlador.procesarEvento(evListadoUsuarios);
+     vistaGGestionUsuarios.setVisible(true);
 }//GEN-LAST:event_jMenuItemUsuariosActionPerformed
 
 private void jMenuItemGestionCatalogoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGestionCatalogoActionPerformed
@@ -531,7 +533,6 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItemBajaTitulo;
     private javax.swing.JMenuItem jMenuItemGestionCatalogo;
     private javax.swing.JMenuItem jMenuItemLectorCConcreta;
-    private javax.swing.JMenuItem jMenuItemListadoUsuarios;
     private javax.swing.JMenuItem jMenuItemLogout;
     private javax.swing.JMenuItem jMenuItemModificarTitulo;
     private javax.swing.JMenuItem jMenuItemMostrarPerfil;
@@ -649,11 +650,12 @@ private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                     //eventoAux = new Evento(TipoEvento.ERROR);
                 }
                 break;
-            case LISTADO_USUARIOS:
+            case CONSULTA_GENERAL_USUARIOS:
                 System.out.println("LISTADO_USUARIOS");
                 try {
 
-                    GestorUsuarios gestorUsuarios = (GestorUsuarios) evento.getInfo();
+                    //GestorUsuarios gestorUsuarios = (GestorUsuarios) evento.getInfo();
+                    listaUsuarios = (List<Usuario>) evento.getInfo();
                     // vistaGListadoUsuarios.fijarModelo(gestorUsuarios);
                     // vistaGListadoUsuarios.setEditable(false);
                     // vistaGListadoUsuarios.setVisible(true);

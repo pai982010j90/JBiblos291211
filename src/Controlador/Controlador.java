@@ -127,20 +127,27 @@ public class Controlador extends AbstractController implements GestorEventos {
 
                 break;
 
-            case LISTADO_USUARIOS:
+            case CONSULTA_GENERAL_USUARIOS:
+
+
 
                 System.out.println("Listado de usuarios");
                 try {
-
+                    /*
                     GestorUsuarios gestorUsuarios = biblioteca.getUsuarios();
-                    eventoRespuesta = new Evento(TipoEvento.LISTADO_USUARIOS, gestorUsuarios);
+                    eventoRespuesta = new Evento(TipoEvento.LISTADO_USUARIOS, gestorUsuarios);*/
+                    if (evento.getTipoEventoRespuesta() == null) {
+                        evento.getDestinoRespueta().procesarEvento(new Evento(TipoEvento.CONSULTA_GENERAL_USUARIOS, biblioteca.getUsuarios().getListaUsuarios().values()));
+                    } else {
+                        evento.getDestinoRespueta().procesarEvento(new Evento(evento.getTipoEventoRespuesta(), biblioteca.getUsuarios().getListaUsuarios().values()));
+                    }
 
                 } catch (Exception ex) {
                     Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
                     System.err.println("LISTADO_USUARIOS: ERROR");
                     eventoRespuesta = new Evento(TipoEvento.CONSULTA_GENERAL_USUARIOS_ERROR);
                 }
-                evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
+                //evento.getDestinoRespueta().procesarEvento(eventoRespuesta);
                 break;
             case ALTA_USUARIO:
                 Usuario usuario = (Usuario) evento.getInfo();

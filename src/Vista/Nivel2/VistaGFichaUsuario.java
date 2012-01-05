@@ -12,14 +12,11 @@ package Vista.Nivel2;
 
 import Controlador.Controlador;
 import Controlador.Evento;
-import Controlador.GestorEventos;
 import Controlador.TipoEvento;
 import Modelo.Usuario;
 import Vista.Modelos.BaseTableModelGen;
-import Vista.Modelos.GestionarModelo;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
-import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /**

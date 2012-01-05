@@ -6,7 +6,6 @@ package Vista.Modelos;
 
 import HBM.Autor;
 import HBM.Titulo;
-import Modelo.Catalogo;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
@@ -26,13 +25,15 @@ public class CatalogoTableModelGen<E> extends BaseTableModelGen {
     @Override
     public void initModel(Collection objTitulos) {
         Collection<Titulo> titulos = (Collection<Titulo>) objTitulos;
-        Object data[][] = new Object[objTitulos.size()][encabezado.length];
+        data= new Object[objTitulos.size()][encabezado.length];
 
         int i = 0;
         for (Titulo titulo : titulos) {
             int j = 0;
             // Extraemos los apellidos
-            data[i][j++] = titulo.getId().getDeweyCategoriaDewey() + "-" + titulo.getId().getIdApellido() + "-" + titulo.getId().getIdTitulo();
+            String codDeweyZeroFill = String.format("%03d", titulo.getId().getDeweyCategoriaDewey());
+
+            data[i][j++] = codDeweyZeroFill + "-" + titulo.getId().getIdApellido() + "-" + titulo.getId().getIdTitulo();
             data[i][j++] = titulo.getNombreTitulo();
             data[i][j++] = WordUtils.capitalizeFully(titulo.getIdioma6391().getIdioma6391());
             

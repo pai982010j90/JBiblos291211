@@ -375,6 +375,11 @@ private void jButtonNuevoTituloActionPerformed(java.awt.event.ActionEvent evt) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public void setDelegado(GestorEventos gestorEventosDelegado) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     class CatalogoTableModel extends DefaultTableModel {
 
         Catalogo catalogo;

@@ -61,6 +61,7 @@ public class Biblioteca extends Observable {
     }
 
     public GestorUsuarios getUsuarios() {
+        //List<Usuario> listaCategoriasDewey = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {

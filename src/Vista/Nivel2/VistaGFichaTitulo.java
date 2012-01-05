@@ -20,6 +20,7 @@ import HBM.Editorial;
 import HBM.Idioma6391;
 import HBM.Titulo;
 import HBM.TituloId;
+import Vista.Modelos.AutoresTableModelGen;
 import Vista.Modelos.BaseTableModelGen;
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
@@ -42,7 +43,7 @@ public class VistaGFichaTitulo extends FichaGBase {
     List<Dewey> listaCategoriasDewey;
     List<Idioma6391> listaIdiomas6391;
     List<Editorial> listaEditoriales;
-    AutoresTableModel autoresTableModel;
+    AutoresTableModelGen<Autor> autoresTableModelGen;
     private Controlador controlador;
     private String modo;
 
@@ -133,6 +134,8 @@ public class VistaGFichaTitulo extends FichaGBase {
         jLabel6 = new javax.swing.JLabel();
         jComboBoxEditoriales = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
+        jButtonNuevoAutor = new javax.swing.JButton();
+        jButtonBorrarAutor = new javax.swing.JButton();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -238,6 +241,22 @@ public class VistaGFichaTitulo extends FichaGBase {
 
         jLabel7.setText("Editorial");
 
+        jButtonNuevoAutor.setText("+");
+        jButtonNuevoAutor.setToolTipText("Añadir nuevo autor");
+        jButtonNuevoAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoAutorActionPerformed(evt);
+            }
+        });
+
+        jButtonBorrarAutor.setText("-");
+        jButtonBorrarAutor.setToolTipText("Desasociar autor");
+        jButtonBorrarAutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarAutorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,48 +264,56 @@ public class VistaGFichaTitulo extends FichaGBase {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(532, Short.MAX_VALUE))
+                .addContainerGap(553, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(jComboBoxCodDewey, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCodAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldCodTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jTextFieldNumPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jComboBoxIdiomas6391, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxCodDewey, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCodAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldCodTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextFieldNumPaginas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxIdiomas6391, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE))
-                .addGap(34, 34, 34))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonBorrarAutor)
+                            .addComponent(jButtonNuevoAutor))
+                        .addGap(21, 21, 21))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelPaginasTitulo)
-                .addContainerGap(534, Short.MAX_VALUE))
+                .addContainerGap(555, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(148, 148, 148)
                 .addComponent(jButtonAceptar)
                 .addGap(77, 77, 77)
                 .addComponent(jButtonCancelar)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(254, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxEditoriales, 0, 137, Short.MAX_VALUE)
+                .addComponent(jComboBoxEditoriales, 0, 158, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addGap(2, 2, 2)
@@ -328,7 +355,12 @@ public class VistaGFichaTitulo extends FichaGBase {
                 .addGap(10, 10, 10)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonNuevoAutor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(jButtonBorrarAutor))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -423,9 +455,23 @@ public class VistaGFichaTitulo extends FichaGBase {
     private void jTextFieldNumeroEdicionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroEdicionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNumeroEdicionActionPerformed
+
+    private void jButtonBorrarAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarAutorActionPerformed
+        int filaSeleccionada = jTableAutores.getSelectedRow();
+        if (filaSeleccionada > -1) {
+            System.err.println("Borrar autor:" + jTableAutores.getSelectedRow());
+            jTableAutores.remove(jTableAutores.getSelectedRow());
+        }
+    }//GEN-LAST:event_jButtonBorrarAutorActionPerformed
+
+    private void jButtonNuevoAutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoAutorActionPerformed
+        System.err.println("Añadir autor");
+    }//GEN-LAST:event_jButtonNuevoAutorActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAceptar;
+    private javax.swing.JButton jButtonBorrarAutor;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonNuevoAutor;
     private javax.swing.JComboBox jComboBoxCodDewey;
     private javax.swing.JComboBox jComboBoxEditoriales;
     private javax.swing.JComboBox jComboBoxIdiomas6391;
@@ -466,8 +512,9 @@ public class VistaGFichaTitulo extends FichaGBase {
         jTextFieldNombre.setText(titulo.getNombreTitulo());
         jTextAreaSinopsis.setText(titulo.getSinopsis());
 
-        autoresTableModel = new AutoresTableModel(titulo.getAutors());
-        jTableAutores.setModel(autoresTableModel);
+        autoresTableModelGen = new AutoresTableModelGen(1);
+        autoresTableModelGen.initModel(titulo.getAutors());
+        jTableAutores.setModel(autoresTableModelGen);
 
         try {
             jTextFieldNumPaginas.setText(titulo.getNumPaginas().toString());
@@ -494,8 +541,8 @@ public class VistaGFichaTitulo extends FichaGBase {
         jTextFieldCodTitulo.setText("");
         jTextFieldNombre.setText("");
         jTextAreaSinopsis.setText("");
-        autoresTableModel = new AutoresTableModel(3);
-        jTableAutores.setModel(autoresTableModel);
+        autoresTableModelGen = new AutoresTableModelGen(3);
+        jTableAutores.setModel(autoresTableModelGen);
         jTextFieldNumPaginas.setText("");
         this.jDateChooserFechaAdquisicion.setDate(null);
     }
@@ -508,7 +555,7 @@ public class VistaGFichaTitulo extends FichaGBase {
         jTextFieldNombre.setEditable(esEditable);
         jTextFieldNombre.setEditable(esEditable);
         jTextAreaSinopsis.setEditable(esEditable);
-        autoresTableModel.setEditable(esEditable);
+        autoresTableModelGen.setEditable(esEditable);
         jComboBoxCodDewey.setEnabled(esEditable);
         jTextFieldNumPaginas.setEditable(esEditable);
         jDateChooserFechaAdquisicion.setEnabled(esEditable);

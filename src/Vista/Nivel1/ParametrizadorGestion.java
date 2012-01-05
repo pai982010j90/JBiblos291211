@@ -5,7 +5,7 @@
 package Vista.Nivel1;
 
 import Controlador.TipoEvento;
-import Vista.Modelos.BaseTableModel;
+import Vista.Modelos.BORRAR.BaseTableModel;
 import Vista.Modelos.BaseTableModelGen;
 
 /**

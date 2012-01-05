@@ -8,7 +8,6 @@ package Controlador;
  *
  * @author nanohp
  */
-//2 lista de valores posibles.
 public enum TipoEvento {
 
     FIJAR_LYL("Fijar Look And Feel"),
@@ -22,7 +21,7 @@ public enum TipoEvento {
     CONSULTA_GENERAL("Consulta general"),
     CONSULTA_CATALOGO_GENERAL("Consulta catálogo general"),
     CONSULTA_CATALOGO_CONCRETA("Consulta catálogo concreta"),
-    /*2 */ LISTADO_USUARIOS("Listado de usuarios"),
+    CONSULTA_GENERAL_USUARIOS("Listado de usuarios"),
     CONSULTA_GENERAL_USUARIOS_ERROR("Listado de usuarios"),
     ALTA_USUARIO("Alta de Usuario"),
     ALTA_USUARIO_OK("Alta de Usuari ok"),

@@ -1,4 +1,4 @@
-package Vista.Modelos;
+package Vista.Modelos.BORRAR;
 
 import HBM.Autor;
 import java.util.ArrayList;
@@ -64,7 +64,6 @@ public class AutoresTableModel extends BaseTableModel {
 
     @Override
     public void addInfo(Object autor) {
-        //titulos.add(titulo);
         listaAutores.add((Autor) autor);
     }
 
